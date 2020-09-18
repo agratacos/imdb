@@ -16,7 +16,7 @@
             ?>
         
         
-        " alt="imatge"> -->
+        " alt="imatge"> comentari -->
         
     </body>
 </html>
