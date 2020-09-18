@@ -7,7 +7,10 @@
         <title>IMDB</title>
     </head>
     <body>
-        <?php include "Connection.php" ?>
+        <?php 
+            $version = 'v1.0.0';
+            include "Connection.php" 
+        ?>
         <h1>prova per pujar al github</h1>
         <h2>hola desde html</h2>
         <!-- <img src="
@@ -16,7 +19,7 @@
             ?>
         
         
-        " alt="imatge"> -->
+        " alt="imatge"> comentari -->
         
     </body>
 </html>
