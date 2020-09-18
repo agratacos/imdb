@@ -8,7 +8,7 @@
     </head>
     <body>
         <?php 
-            $version = 'v1.0.0';
+            $version = 'v1.0.1';
             include "Connection.php" 
         ?>
         <h1>prova per pujar al github</h1>
