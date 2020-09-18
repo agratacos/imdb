@@ -19,7 +19,7 @@
             ?>
         
         
-        " alt="imatge"> comentari -->
+        " alt="imatge"> -->
         
     </body>
 </html>
