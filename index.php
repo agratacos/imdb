@@ -1,25 +1,28 @@
+<?php 
+    $version = 'v2.0.0';
+    // require_once('Database\Connection.php');
+    // $database = new Connection();
+
+    // echo $database->searchFilmImage();
+    // require_once("proves.php");
+?>
 <!DOCTYPE html>
     <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="estils.css">
+        <link rel="stylesheet" href="style.css">
         <title>IMDB</title>
     </head>
     <body>
+        <!-- Proves -->
+        <!-- <h2>hola desde html</h2>
+        <img src=" 
         <?php 
-            $version = 'v2.0.0';
-            include "Connection.php" 
-        ?>
-        <h1>prova per pujar al github</h1>
-        <h2>hola desde html</h2>
-        <!-- <img src="
-            <?php
-                
-            ?>
-        
-        
-        " alt="imatge"> afegir canvi a develop -->
+            // echo $database->searchFilmImage();
+        ?>" alt="civil-war">         -->
+
+        <?php require_once('Form\Form.html'); ?>
         
     </body>
 </html>

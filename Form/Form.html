@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="Form\style.css">
+    </head>
+    <body>
+        <aside>
+            <h2>Entrar Pel·licula</h2>
+            <form action="get_form.php" method="post" enctype="multipart/form-data">
+                <p>
+                    <label for="title">Títol:</label>
+                    <input type="text" name="title" id="title" placeholder="Nom de la pel·licula">
+                </p>
+                <p>
+                    <label for="description">Descripció:</label>
+                    <textarea name="description" id="description" cols="30" rows="10"
+                    maxlength="500" placeholder="Sinopsis de la pel·licula"></textarea>
+                </p>
+                <!-- <p>
+                    <label for=""></label>
+
+                </p> -->
+
+                <p>
+                    <label for="image">Caràtula:</label>
+                    <input type="file" name="image" id="image">
+                </p>
+                <div id="uploaded-image-preview">
+                    <img src="" alt="">
+                </div>
+            </form> 
+        </aside>
+    </body>
+</html>
+
+

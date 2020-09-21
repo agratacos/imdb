@@ -1,0 +1,25 @@
+* {
+    font-family: cursive;
+}
+
+aside {
+    background-color: rgb(211, 202, 202);
+    width: 50%;
+    margin: 20px auto;
+    bottom: 0px;
+}
+
+aside h2 {
+    text-align: center;
+}
+
+aside p {
+    margin: 10px;
+    margin-left: 20px;
+}
+
+aside textarea {
+    display: block;
+    width: 80%;
+    height: 100px;
+}
