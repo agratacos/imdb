@@ -4,7 +4,7 @@
     // $database = new Connection();
 
     // echo $database->searchFilmImage();
-    // require_once("proves.php");
+    // require_once("tests.php");
 ?>
 <!DOCTYPE html>
     <html lang="es">
@@ -21,8 +21,8 @@
         <?php 
             // echo $database->searchFilmImage();
         ?>" alt="civil-war">         -->
-
-        <?php require_once('Form\Form.html'); ?>
+        
+        <?php require_once('Form\form.php'); ?>
         
     </body>
 </html>
