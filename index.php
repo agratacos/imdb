@@ -1,5 +1,5 @@
 <?php 
-    $version = 'v2.0.0';
+    $version = 'v2.0.1';
     // require_once('Database\Connection.php');
     // $database = new Connection();
 
