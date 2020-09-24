@@ -1,10 +1,10 @@
 <?php 
     $version = 'v2.0.1';
-    // require_once('Database\Connection.php');
-    // $database = new Connection();
+    require_once('Database\Connection.php');
+    $database = new Connection();
 
-    // echo $database->searchFilmImage();
-    // require_once("tests.php");
+    // echo $database->searchMovieImage();
+    // include("tests.php");
 ?>
 <!DOCTYPE html>
     <html lang="es">
@@ -15,14 +15,14 @@
         <title>IMDB</title>
     </head>
     <body>
-        <!-- Proves -->
-        <!-- <h2>hola desde html</h2>
-        <img src=" 
-        <?php 
-            // echo $database->searchFilmImage();
-        ?>" alt="civil-war">         -->
+        <h2>hola desde HTML</h2>
         
-        <?php require_once('Form\form.php'); ?>
+        <!-- include('Form\form.php');  -->
         
+        <img src="
+            <?php 
+                echo $database->searchMovieImage('Coach Carter');
+            ?>
+            " alt="error">   
     </body>
 </html>
