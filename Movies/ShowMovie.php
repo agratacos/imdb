@@ -1,5 +1,7 @@
-<?php
+<?php namespace Movies;
 // ¿Va relacionat amb el SearchMovie?
+// use Movies\SearchMovie as search;
+
 class ShowMovie extends Connection {
     
     public function show($id) {
@@ -9,7 +11,7 @@ class ShowMovie extends Connection {
         // return array amb totes les dades
     }
 
-    private function _queryMovie() {
+    private function _queryMovie($id) {
         $sql = "SELECT pelicula.nom, pelicula.descripcio, pelicula.puntuacio, pelicula.data_publi, pelicula.caratula, 
 		        director.nom as 'nom_director', genere.nom as 'nom_genere', actor.nom as 'nom_actor', plataforma.nom as 'nom_plataforma'
                 from pelicula 

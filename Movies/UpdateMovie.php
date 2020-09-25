@@ -1,4 +1,4 @@
-<?php
+<?php namespace Movies;
 
 class UpdateMovie extends Connection {
     

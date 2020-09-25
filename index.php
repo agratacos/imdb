@@ -1,7 +1,7 @@
 <?php 
     $version = 'v2.0.1';
-    require_once('Movies\Connection.php');
-    $database = new Connection();
+    // require_once('Movies\Connection.php');
+    // $database = new Connection();
 
     // echo $database->searchMovieImage();
     // include("tests.php");
@@ -19,10 +19,10 @@
         
         <!-- include('Form\form.php');  -->
         
-        <img src="
+        <!-- <img src=" -->
             <?php 
-                echo $database->searchMovieImage('Coach Carter');
+                // echo $database->searchMovieImage('Coach Carter');
             ?>
-            " alt="error">   
+            <!-- " alt="error">    -->
     </body>
 </html>

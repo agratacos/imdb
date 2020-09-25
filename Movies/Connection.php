@@ -1,4 +1,4 @@
-<?php
+<?php namespace Movies;
 /* Tots els objectes que heredin de Connection, i a partir les classes objDB, enviar en les funcions 
     de Connection informació més concreta per fer consultes */
 class Connection {
