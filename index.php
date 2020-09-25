@@ -1,6 +1,6 @@
 <?php 
     $version = 'v2.0.1';
-    require_once('Database\Connection.php');
+    require_once('Movies\Connection.php');
     $database = new Connection();
 
     // echo $database->searchMovieImage();
