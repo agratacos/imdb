@@ -1,4 +1,4 @@
-<?php namespace Movies;
+<?php namespace IMDB\Movies;
 
 use Movies\Connection;
 

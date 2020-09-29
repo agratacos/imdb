@@ -6,5 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Movies\\' => array($baseDir . '/imdb'),
+    'IMDB\\' => array($baseDir . '/'),
 );

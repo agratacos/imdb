@@ -6,4 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'IMDB\\Movies\\Connection' => $baseDir . '/Movies/Connection.php',
+    'IMDB\\Movies\\DeleteMovie' => $baseDir . '/Movies/DeleteMovie.php',
+    'IMDB\\Movies\\InsertMovie' => $baseDir . '/Movies/InsertMovie.php',
+    'IMDB\\Movies\\SearchMovie' => $baseDir . '/Movies/SearchMovie.php',
+    'IMDB\\Movies\\ShowMovie' => $baseDir . '/Movies/ShowMovie.php',
+    'IMDB\\Movies\\UpdateMovie' => $baseDir . '/Movies/UpdateMovie.php',
 );

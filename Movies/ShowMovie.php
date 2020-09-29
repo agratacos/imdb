@@ -1,14 +1,13 @@
-<?php namespace Movies;
+<?php namespace IMDB\Movies;
 // ¿Va relacionat amb el SearchMovie?
-// use Movies\SearchMovie as search;
+// use IMDB\Movies\SearchMovie as search;
+use PDO;
 
 class ShowMovie extends Connection {
     
     public function show($id) {
         // $search = new SearchMovie();
-        
-        
-        // return array amb totes les dades
+        print_r($this->_returnMovie($this->_queryMovie($id)));
     }
 
     private function _queryMovie($id) {
@@ -25,16 +24,27 @@ class ShowMovie extends Connection {
                 join plataforma on plataforma.id_plataforma = plataforma_pelicula.id_plataforma
                 where pelicula.id_pelicula = $id;";
         $result = $this->connect->prepare($sql);
-        return $result->execute();
+        $result->execute();
+        return $result;
     }
 
     private function _returnMovie($result) {
         $dades = array();
-
-
-        // return [
-        //     'nom' => $sql['nom']
-        //     'descripcio'
-        // ];
+        
+        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
+            $dades[] = array (
+                'nom' => $row['nom'],
+                'descripcio' => $row['descripcio'],
+                'puntuacio' => $row['puntuacio'],
+                'data_publi' => $row['data_publi'],
+                'caratula' => $row['caratula'],
+                'nom_director' => $row['nom_director'],
+                'nom_genere' => $row['nom_genere'],
+                'nom_actor' => $row['nom_actor'],
+                'nom_plataforma' => $row['nom_plataforma']
+            );
+        }
+        // Mirar d'aplicar-li el array_unique a $dades, a veure què passa
+        return $dades;
     }
 }

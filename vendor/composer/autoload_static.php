@@ -7,17 +7,26 @@ namespace Composer\Autoload;
 class ComposerStaticInit86d9c903fa5ca1e6127d1bebadf65ccd
 {
     public static $prefixLengthsPsr4 = array (
-        'M' => 
+        'I' => 
         array (
-            'Movies\\' => 7,
+            'IMDB\\' => 5,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Movies\\' => 
+        'IMDB\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/imdb',
+            0 => __DIR__ . '/../..' . '/',
         ),
+    );
+
+    public static $classMap = array (
+        'IMDB\\Movies\\Connection' => __DIR__ . '/../..' . '/Movies/Connection.php',
+        'IMDB\\Movies\\DeleteMovie' => __DIR__ . '/../..' . '/Movies/DeleteMovie.php',
+        'IMDB\\Movies\\InsertMovie' => __DIR__ . '/../..' . '/Movies/InsertMovie.php',
+        'IMDB\\Movies\\SearchMovie' => __DIR__ . '/../..' . '/Movies/SearchMovie.php',
+        'IMDB\\Movies\\ShowMovie' => __DIR__ . '/../..' . '/Movies/ShowMovie.php',
+        'IMDB\\Movies\\UpdateMovie' => __DIR__ . '/../..' . '/Movies/UpdateMovie.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -25,6 +34,7 @@ class ComposerStaticInit86d9c903fa5ca1e6127d1bebadf65ccd
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit86d9c903fa5ca1e6127d1bebadf65ccd::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit86d9c903fa5ca1e6127d1bebadf65ccd::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit86d9c903fa5ca1e6127d1bebadf65ccd::$classMap;
 
         }, null, ClassLoader::class);
     }

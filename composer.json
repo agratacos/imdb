@@ -1,7 +1,7 @@
 {
     "autoload": {
         "psr-4": {
-            "Movies\\": "imdb/"
+            "IMDB\\": "../imdb/"
         }
     },
     "authors": [ 
@@ -10,5 +10,6 @@
             "email": "agratacos@gnahs.com"
         }
     ],
-    "type": "project"
+    "type": "project",
+    "require": {}
 }

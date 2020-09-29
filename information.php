@@ -1,10 +1,10 @@
 <?php
 
 require 'vendor/autoload.php';
-use Movies\DeleteMovie as delete;
-use Movies\InsertMovie as insert;
-use Movies\UpdateMovie as update; 
-use Movies\ShowMovie as show;
+use IMDB\Movies\DeleteMovie as delete;
+use IMDB\Movies\InsertMovie as insert;
+use IMDB\Movies\UpdateMovie as update; 
+use IMDB\Movies\ShowMovie as show;
 
 
 // http://information.php?delete=5
@@ -16,13 +16,9 @@ $formats = [
     'show'   => $_GET['show']
 ];
 
-foreach ($formats as $type => $value) {
-    if (!isset($formats[$type])) unset($formats[$type]);
-    else {
-        $key = $type;
-        if (!empty($value)) $number = $value;
-    }
-}
+arsort($formats);
+$key = key($formats);
+$number = current($formats);
 
 switch ($key) {
     case 'delete':
@@ -39,7 +35,9 @@ switch ($key) {
         break;
     case 'show':
         $show = new show();
-        $show->show($number);
+        echo "<pre>"; // Treure-ho
+            $show->show($number);
+        echo "</pre>"; // Treure-ho
         break;
     default:
         # code...

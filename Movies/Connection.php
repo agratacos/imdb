@@ -1,6 +1,8 @@
-<?php namespace Movies;
+<?php namespace IMDB\Movies;
 /* Tots els objectes que heredin de Connection, i a partir les classes objDB, enviar en les funcions 
     de Connection informació més concreta per fer consultes */
+use PDO;
+
 class Connection {
     
     protected $connect;
