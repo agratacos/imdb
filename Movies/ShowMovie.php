@@ -33,15 +33,15 @@ class ShowMovie extends Connection {
         
         while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
             $dades[] = array (
-                'nom' => $row['nom'],
-                'descripcio' => $row['descripcio'],
-                'puntuacio' => $row['puntuacio'],
-                'data_publi' => $row['data_publi'],
-                'caratula' => $row['caratula'],
-                'nom_director' => $row['nom_director'],
-                'nom_genere' => $row['nom_genere'],
-                'nom_actor' => $row['nom_actor'],
-                'nom_plataforma' => $row['nom_plataforma']
+                'name' => $row['nom'],
+                'description' => $row['descripcio'],
+                'score' => $row['puntuacio'],
+                'publi_date' => $row['data_publi'],
+                'image' => $row['caratula'],
+                'director_name' => $row['nom_director'],
+                'genre_name' => $row['nom_genere'],
+                'actor_name' => $row['nom_actor'],
+                'platform_name' => $row['nom_plataforma']
             );
         }
         // Mirar d'aplicar-li el array_unique a $dades, a veure què passa
