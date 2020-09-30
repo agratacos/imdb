@@ -11,6 +11,12 @@ class InsertMovie extends Connection {
         $this->data = $data;
     }
 
+    private function _insertActor($name) {
+        $stmt = $this->connect->prepare("INSERT INTO actor (id_actor, nom)
+            values (default, ?);");
+        $stmt->execute(array($name));
+    }
+
     private function _insertBasicTable($table_name, $field_db, $field_query) {
         $stmt = $this->connect->prepare("INSERT INTO $table_name ($field_db, nom)
             values (default, ?);");
@@ -23,7 +29,7 @@ class InsertMovie extends Connection {
      * $field_db: Table's primary key and field_db (foreign key from reference_table_name) have the same name in the DB
      */
     private function _insertBetweenTables($table_name, $field_db, $reference_table_name) {
-        $id_movie = $this->_get_id_movie();
+        $id_movie = $this->_getIdMovie();
         $id_reference_table = $this->_get_id_reference_table($reference_table_name, $field_db);
         $stmt = $this->connect->prepare("INSERT INTO $table_name (id_pelicula, $field_db)
             values ($id_movie, $id_reference_table);");
@@ -37,14 +43,25 @@ class InsertMovie extends Connection {
     }
 
     private function _get_id_reference_table($table_name, $field_db) {
-        $stmt = $this->connect->prepare("SELECT $field_db FROM $table_name WHERE ");
+        $result = $this->connect->prepare("SELECT $field_db FROM $table_name WHERE nom = :name");
+        $result->execute();
+
+        while ($value = $result->fetch(PDO::FETCH_ASSOC)) {
+            # code...
+        }
         // En aqui, la consulta podria retornar més d'un valor, pensar com arreglar això
     }
 
     public function insert() {
         $this->_insertBasicTable('director', 'id_director', 'director_name');
         $this->_insertBasicTable('plataforma', 'id_plataforma', 'platform_name');
-        $this->_insertBasicTable('actor', 'id_actor', 'actor_name');
+        
+        // Actors
+        for ($i=0; $i < sizeof($this->data['actors_names']); $i++) {
+            $actor = $this->data['actors_names'][$i];
+            $this->_insertActor($actor);
+        }
+        // $this->_insertBasicTable('actor', 'id_actor', 'actor_name');
         $this->_insertBasicTable('genere', 'id_genere', 'genre_name');
 
         // $insertDirector = $this->connect->prepare("INSERT INTO director (id_director, nom)
@@ -63,6 +80,6 @@ class InsertMovie extends Connection {
             values (default, ?, ?, ?, ?, ?);");
         $insertMovie->exectue(array($this->$data['title'], $this->$data['description'], $this->$data['score'], $this->$data['publication_date'], $this->$data['image']));
     
-        _insertBetweenTables();
+        _insertBetweenTables('pelicula_director', 'id_director', 'director');
     }
 }
