@@ -14,12 +14,13 @@ class InsertMovie extends Connection {
     private function _insertActor($name) {
         $stmt = $this->connect->prepare("INSERT INTO actor (id_actor, nom)
             values (default, ?);");
-        $stmt->execute(array($name));
+        $stmt->execute([$name]);
     }
 
     private function _insertBasicTable($table_name, $field_db, $field_query) {
-        $stmt = $this->connect->prepare("INSERT INTO $table_name ($field_db, nom)
-            values (default, ?);");
+        // S'ha de canviar les variables, aplicar el bindParam
+        $stmt = $this->connect->prepare('INSERT INTO $table_name ($field_db, nom)
+            values (default, ?);');
         $stmt->execute(array($this->$data[$field_query]));
     }
 
@@ -36,9 +37,9 @@ class InsertMovie extends Connection {
     }
 
     private function _getIdMovie() {
-        $stmt = $this->connect->prepare("SELECT id_pelicula FROM pelicula WHERE nom = :name");
+        $stmt = $this->connect->prepare('SELECT id_pelicula FROM pelicula WHERE nom = :name');
         $stmt->bindParam(':name', $this->data['title'], PDO::PARAM_STR, 40);
-        $stmt->execute();
+        $stmt->execute(['name' => $name]);
         return $stmt['id_pelicula']; // Si això no funciona, fer-ho amb $stmt->fetch()
     }
 

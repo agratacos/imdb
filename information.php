@@ -18,12 +18,12 @@ $formats = [
 
 arsort($formats);
 $key = key($formats);
-$number = current($formats);
+$name = current($formats);
 
 switch ($key) {
     case 'delete':
         $delete = new delete();
-        $delete->delete($number);
+        $delete->delete($name);
         break;
     case 'update':
         $update = new update();
@@ -34,9 +34,11 @@ switch ($key) {
         $insert->insert();
         break;
     case 'show':
+        /* En aquí, que redirigeixi a buscar una peli o totes, en funció del que digui la url, 
+            o posa el nom de la pelicula o 'all' */
         $show = new show();
         echo "<pre>"; // Treure-ho
-            $show->show($number);
+            $show->showFilm($name);
         echo "</pre>"; // Treure-ho
         break;
     default:
