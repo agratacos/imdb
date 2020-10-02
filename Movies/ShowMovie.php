@@ -1,41 +1,48 @@
 <?php namespace IMDB\Movies;
 
-use PDO;
+// use PDO;
 use IMDB\Movies\SearchMovie as search;
 
-class ShowMovie extends Connection {
+class ShowMovie extends SearchMovie {
 
-    // public function __construct() {
-    //     $this->var = $var;
-    // }
+    private $search;
 
+    public function __construct() {}
 
     public function showFilm($name) 
     {
-        $search = new search($name);
-
-
-
-        print_r($this->_returnMovie());
+        $this->search = new search($name);
+        $this->search->search();
+        var_dump($this->search->movies);
+        // print_r($this->_returnMovie());
     }
 
     public function showAll()
     {
-        $search = new search(NULL);
+        $this->search = new search(NULL);
+        $this->search->search();
+        // print_r($this->_returnMovie());
     }
 
+    /******************************************
+     * Fer funcions amb les claus que es posaran als arrays que s'enviin, 
+     * fer un array_combine entre aixó, i dp un array_merge per retornar el final
+     ******************************************/
 
-    private function _returnMovie($resultat) 
+    // Agafar els arrays desde l'altre classe
+    private function _returnMovie() 
     {
-        $dades = array();
+        $dades[] = array_merge($this->search->movies, $this->search->directors, $this->search->platforms, $this->search->actors, $this->search->genre);
+
+        // $dades = array();
         
-        $dades = [
-            'pelicula' => $this->movies,
-            'director' => $this->directors,
-            'platforms' => $this->platforms,
-            'actors' => $this->actors,
-            'genre' => $this->genre
-        ];
+        // $dades = [
+        //     'pelicula' => $this->movies,
+        //     'director' => $this->directors,
+        //     'platforms' => $this->platforms,
+        //     'actors' => $this->actors,
+        //     'genre' => $this->genre
+        // ];
 
         // foreach ($this->movies as $key => $value) {
         //     # code...
@@ -55,7 +62,7 @@ class ShowMovie extends Connection {
         //     ];
         // }
         // Mirar d'aplicar-li el array_unique a $dades, a veure què passa
-        return json_encode($dades);
+        return $dades;
     }
 }
  

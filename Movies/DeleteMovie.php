@@ -5,6 +5,8 @@ use Movies\Connection;
 
 class DeleteMovie extends Connection {
     
+    public function __construct() {}
+    
     public function delete($id) 
     {
         try {

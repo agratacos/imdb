@@ -6,8 +6,11 @@ use IMDB\Movies\InsertMovie as insert;
 use IMDB\Movies\UpdateMovie as update; 
 use IMDB\Movies\ShowMovie as show;
 
+use IMDB\Movies\SearchMovie as search;
 
-// http://information.php?delete=5
+
+
+// http://information.php?show=Peli Nom
 
 $formats = [
     'delete' => $_GET['delete'],
@@ -36,10 +39,10 @@ switch ($key) {
     case 'show':
         /* En aquí, que redirigeixi a buscar una peli o totes, en funció del que digui la url, 
             o posa el nom de la pelicula o 'all' */
-        $show = new show();
-        echo "<pre>"; // Treure-ho
-            $show->showFilm($name);
-        echo "</pre>"; // Treure-ho
+        $show = new show(); 
+        echo "<pre>";
+            is_null($name) ? $show->showAll() : $show->showFilm($name); 
+        echo "</pre>";
         break;
     default:
         # code...
