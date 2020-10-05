@@ -1,24 +1,38 @@
 <?php
 
-// http://information.php?delete&number=5
+$version = 'v2.0.1';
+
+require 'vendor/autoload.php';
+use IMDB\Movies\DeleteMovie as delete;
+use IMDB\Movies\UpdateMovie as update;
+use IMDB\Movies\InsertMovie as insert;
+use IMDB\Movies\ShowMovie as show;
+
+// http://information.php?show=Nom Peli
 
 $delete = $_GET['delete'];
 $update = $_GET['update'];
-$create = $_GET['create'];
-$number = $_GET['number'];
+$insert = $_GET['insert'];
+$show = $_GET['show'];
 
-echo "<br><br><br>";
 if (isset($delete)) {
-    echo 'delete ';
-    echo 'Number multiplied by 2: ' . $number * 2;
+    $deleteObj = new delete();
+    $deleteObj->delete($delete);
 }
 
 if (isset($update)) {
-    echo 'update ';
-    echo 'Number multiplied by 3: ' . $number * 3;
+    $update = new update();
+    $update->update();
 }
 
-if (isset($create)) {
-    echo 'create ';
-    echo 'Number multiplied by 4: ' . $number * 4;
+if (isset($insert)) {
+    $insert = new insert();
+    $insert->insert();
+}
+
+if (isset($show)) {
+    $view = new show(); 
+    echo "<pre>";
+        is_null($show) ? $view->showAll() : $view->showFilm($show); 
+    echo "</pre>";
 }
