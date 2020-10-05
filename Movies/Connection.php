@@ -1,6 +1,7 @@
 <?php namespace IMDB\Movies;
-/* Tots els objectes que heredin de Connection, i a partir les classes objDB, enviar en les funcions 
-    de Connection informació més concreta per fer consultes */
+
+//  All classes extends to Connection
+
 use PDO;
 
 class Connection {
@@ -14,7 +15,7 @@ class Connection {
             $this->connect = new PDO('mysql:host=localhost;dbname=imdb', 'root', ''); 
             $this->connect -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $ex) { 
-            return $ex->get_message(); 
+            return "ERROR {$ex->get_message()}"; 
           }
     }
 }

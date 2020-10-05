@@ -21,7 +21,6 @@ class SearchMovie extends Connection {
     public function search() 
     {
         $this->_callAll();
-        // I ara enviar tota aquesta informació a la classe show
         $this->_assignAll();
     }
 
@@ -45,8 +44,6 @@ class SearchMovie extends Connection {
         }
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        // Intentar fer arribar aquest array en la funció _returnMovie de ShowMovie i que vagi afegint a mida que hi arriba
-            // O al final enviar-hi els atributs privats
         return $result;
     }
 

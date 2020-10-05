@@ -13,7 +13,7 @@ class ShowMovie extends SearchMovie {
     {
         $this->search = new search($name);
         $this->search->search();
-        var_dump($this->search->movies);
+        // var_dump($this->search->movies);
         // print_r($this->_returnMovie());
     }
 
