@@ -5,7 +5,6 @@ use IMDB\Movies\Connection;
 
 class SearchMovie extends Connection {
         
-    private $where;
     private $name;
     protected $movies;
     protected $directors;
@@ -14,14 +13,22 @@ class SearchMovie extends Connection {
     protected $genre;
 
     public function __construct($name) {
-        is_null($name) ? $this->where = false : $this->where = true;
+        parent::__construct();
         $this->name = $name;
     }
     
     public function search() 
     {
         $this->_callAll();
-        $this->_assignAll();
+        $this->_merge();
+    }
+
+    protected function _getMoviesNames()
+    {
+        $stmt = $this->connect->prepare('SELECT nom as movie_name FROM pelicula');
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
     private function _callAll() 
@@ -35,14 +42,9 @@ class SearchMovie extends Connection {
     
     private function _executeQuery($sql) 
     {
-        $whereString = ' where pelicula.nom = :name ;';
-        if ($this->where) {
-            $stmt = $this->connect->prepare($sql . $whereString);
-            $stmt->bindParam(':name', $this->name, PDO::PARAM_STR, 40);
-        } else {
-            $stmt = $this->connect->prepare($sql . ';');
-        }
-        $stmt->execute();
+        $whereString = ' where pelicula.nom like :name ;';
+        $stmt = $this->connect->prepare($sql . $whereString);
+        $stmt->execute([':name' => "%{$this->name}%"]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -62,7 +64,7 @@ class SearchMovie extends Connection {
         $this->directors = $this->_executeQuery($sql);
     }
 
-    private function _queryPlatforms() 
+    private function _queryPlatforms()
     {
         $sql = 'SELECT plataforma.nom as platform_name from pelicula
             join plataforma_pelicula on pelicula.id_pelicula = plataforma_pelicula.id_pelicula
@@ -86,17 +88,13 @@ class SearchMovie extends Connection {
         $this->genre = $this->_executeQuery($sql);
     }
 
-
-    private function _assignAll()
+    private function _merge()
     {
-        $this->movies = $this->_mergeAllData($this->movies);
-        $this->directors = $this->_mergeAllData($this->directors);
-        $this->platforms = $this->_mergeAllData($this->platforms);
-        $this->actors = $this->_mergeAllData($this->actors);
-        $this->genre = $this->_mergeAllData($this->genre);
+        $this->platforms = $this->_mergeField($this->platforms);
+        $this->genre = $this->_mergeField($this->genre);
     }
 
-    private function _mergeAllData($array) 
+    private function _mergeField($array)
     {
         $result = $array[0];
         for ($i=1; $i < sizeof($array); $i++) { 

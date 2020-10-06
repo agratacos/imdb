@@ -33,6 +33,6 @@ if (isset($insert)) {
 if (isset($show)) {
     $view = new show(); 
     echo "<pre>";
-        is_null($show) ? $view->showAll() : $view->showFilm($show); 
+        strlen($show) == 0 ? $view->showAll() : $view->showFilm($show); 
     echo "</pre>";
 }

@@ -9,6 +9,7 @@ class InsertMovie extends Connection {
     private $data;
 
     public function __construct($data) {
+        parent::__construct();
         $this->data = $data;
     }
 
