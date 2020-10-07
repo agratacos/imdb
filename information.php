@@ -1,12 +1,12 @@
 <?php
 
-$version = 'v2.1.1';
+$version = 'v2.2.1';
 
 require 'vendor/autoload.php';
-use IMDB\Movies\DeleteMovie as delete;
-use IMDB\Movies\UpdateMovie as update;
-use IMDB\Movies\InsertMovie as insert;
-use IMDB\Movies\ShowMovie as show;
+use IMDB\Movies\DeleteMovie as Delete;
+use IMDB\Movies\UpdateMovie as Update;
+use IMDB\Movies\InsertMovie as Insert;
+use IMDB\Movies\ShowMovie as Show;
 
 // http://information.php?show=Nom Peli
 
@@ -16,23 +16,23 @@ $insert = $_GET['insert'];
 $show = $_GET['show'];
 
 if (isset($delete)) {
-    $deleteObj = new delete();
+    $deleteObj = new Delete();
     $deleteObj->delete($delete);
 }
 
 if (isset($update)) {
-    $update = new update();
+    $update = new Update();
     $update->update();
 }
 
 if (isset($insert)) {
-    $insert = new insert();
+    $insert = new Insert();
     $insert->insert();
 }
 
 if (isset($show)) {
-    $view = new show(); 
+    $view = new Show(); 
     echo "<pre>";
-        is_null($show) ? $view->showAll() : $view->showFilm($show); 
+        strlen($show) == 0 ? $view->showAll() : $view->showFilm($show); 
     echo "</pre>";
 }
