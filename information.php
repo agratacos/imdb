@@ -1,6 +1,6 @@
 <?php
 
-$version = 'v2.1.1';
+$version = 'v2.2.1';
 
 require 'vendor/autoload.php';
 use IMDB\Movies\DeleteMovie as Delete;
