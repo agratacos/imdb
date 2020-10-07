@@ -3,22 +3,27 @@
 use PDO;
 use IMDB\Movies\Connection;
 
-class InsertMovie extends Connection {
+class InsertMovie extends Connection 
+{
     
     // La informació de la variable $data, és la que entra per el formulari
     private $data;
 
-    public function __construct($data) {
+    public function __construct($data) 
+    {
+        parent::__construct();
         $this->data = $data;
     }
 
-    private function _insertActor($name) {
+    private function _insertActor($name) 
+    {
         $stmt = $this->connect->prepare('INSERT INTO actor (id_actor, nom)
             values (default, ?);');
         $stmt->execute([$name]);
     }
 
-    private function _insertBasicTable($table_name, $field_db, $field_query) {
+    private function _insertBasicTable($table_name, $field_db, $field_query) 
+    {
         $stmt = $this->connect->prepare('INSERT INTO :table_name (:field_db, nom)
             values (default, ?);');
         $stmt->bindParam(':table_name', $table_name, PDO::PARAM_STR, 10);
@@ -31,7 +36,8 @@ class InsertMovie extends Connection {
      * 
      * $field_db: Table's primary key and field_db (foreign key from reference_table_name) have the same name in the DB
      */
-    private function _insertBetweenTables($table_name, $field_db, $reference_table_name) {
+    private function _insertBetweenTables($table_name, $field_db, $reference_table_name) 
+    {
         $id_reference_table = $this->_get_id_reference_table($reference_table_name, $field_db);
         $stmt = $this->connect->prepare('INSERT INTO :table_name (id_pelicula, :field_db)
             values (:id_movie, :id_reference_table);');
@@ -42,14 +48,16 @@ class InsertMovie extends Connection {
         $stmt->execute();
     }
 
-    private function _getIdMovie() {
+    private function _getIdMovie() 
+    {
         $stmt = $this->connect->prepare('SELECT id_pelicula FROM pelicula WHERE nom = :name');
         $stmt->bindParam(':name', $this->data['title'], PDO::PARAM_STR, 40);
         $stmt->execute();
         return $stmt->fetch();
     }
 
-    private function _get_id_reference_table($table_name, $field_db) {
+    private function _get_id_reference_table($table_name, $field_db) 
+    {
         $stmt = $this->connect->prepare('SELECT :field_db FROM :table_name WHERE nom = :name');
         $stmt->bindParam(':field_db', $field_db, PDO::PARAM_STR, 20);
         $stmt->bindParam(':table_name', $table_name, PDO::PARAM_STR, 25);
@@ -62,7 +70,8 @@ class InsertMovie extends Connection {
         // En aqui, la consulta podria retornar més d'un valor (ex: tornar 2 directors), pensar com arreglar això
     }
 
-    public function insert() {
+    public function insert() 
+    {
         $this->_insertBasicTable('director', 'id_director', 'director_name');
         $this->_insertBasicTable('plataforma', 'id_plataforma', 'platform_name');
         

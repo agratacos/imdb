@@ -4,11 +4,11 @@
 
 use PDO;
 
-class Connection {
+class Connection 
+{
     
     protected $connect;
     
-    // Constructor
     public function __construct() 
     {
         try {
