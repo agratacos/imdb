@@ -4,7 +4,8 @@
 
 use PDO;
 
-class Connection {
+class Connection 
+{
     
     protected $connect;
     

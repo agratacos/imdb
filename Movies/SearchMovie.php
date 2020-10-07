@@ -3,7 +3,8 @@
 use PDO;
 use IMDB\Movies\Connection;
 
-class SearchMovie extends Connection {
+class SearchMovie extends Connection 
+{
         
     private $name;
     protected $movies;
@@ -12,7 +13,8 @@ class SearchMovie extends Connection {
     protected $actors;
     protected $genre;
 
-    public function __construct($name) {
+    public function __construct($name) 
+    {
         parent::__construct();
         $this->name = $name;
     }

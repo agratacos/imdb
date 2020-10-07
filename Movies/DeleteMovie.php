@@ -3,9 +3,11 @@
 use PDO;
 use IMDB\Movies\Connection;
 
-class DeleteMovie extends Connection {
+class DeleteMovie extends Connection 
+{
     
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
     }
     

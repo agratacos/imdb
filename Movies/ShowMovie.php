@@ -3,13 +3,17 @@
 // use PDO;
 use IMDB\Movies\SearchMovie as search;
 
-class ShowMovie extends SearchMovie {
+class ShowMovie extends SearchMovie 
+{
 
     private $search;
 
-    public function __construct() {}
+    public function __construct() 
+    {
+        
+    }
 
-    public function showFilm($name) 
+    public function showFilm($name)
     {
         $this->search = new search($name);
         $this->search->search();
@@ -52,7 +56,7 @@ class ShowMovie extends SearchMovie {
         $dades[$this->search->movies[0]['id_movie']] = [   
             'movie_data' => $this->search->movies[0], // Always return 1 position with all information
             'directors' => $this->search->directors, 
-            'platforms' => $this->search->platforms, 
+            'platforms' => $this->search->platforms, // Funció perquè retorni un array associatiu amb tots els valors
             'actors' => $this->search->actors, 
             'genre' => $this->search->genre
         ];

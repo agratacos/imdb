@@ -2,9 +2,11 @@
 
 use IMDB\Movies\Connection;
 
-class UpdateMovie extends Connection {
+class UpdateMovie extends Connection 
+{
     
-    public function __construct() {
+    public function __construct() 
+    {
         parent::__construct();
     }
 
