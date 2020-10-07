@@ -5,13 +5,12 @@ use IMDB\Movies\Connection;
 
 class SearchMovie extends Connection 
 {
-        
     private $name;
     protected $movies;
     protected $directors;
     protected $platforms;
     protected $actors;
-    protected $genre;
+    protected $genres;
 
     public function __construct($name) 
     {
@@ -39,9 +38,17 @@ class SearchMovie extends Connection
         $this->_queryDirectors();
         $this->_queryPlatforms();
         $this->_queryActors();
-        $this->_queryGenre();
+        $this->_queryGenres();
     }
     
+    /* Per filtrar per peli, plataforma i genere.
+        Comparar el valor que arriba, amb les dades de plataforma, genere i pelicula (els noms) que hi han a la BD,
+        a base de ifs, i el que coincideixi, utilitzar aquella taula.
+        Per defecte busca en la taula pelicula.
+        
+        Mirar d'utilitzar la funció _getTablesNames() adaptant-la a que retorni les 3 dades, 
+        però primer mirar com retorna la informació i a veure si el nom de les pelis desde ShowMovie
+        es pot agafar amb columna ( ['movie_name'] ) */
     private function _executeQuery($sql) 
     {
         $whereString = ' where pelicula.nom like :name ;';
@@ -60,7 +67,7 @@ class SearchMovie extends Connection
 
     private function _queryDirectors() 
     {
-        $sql = 'SELECT director.nom as director_name, director.cognoms as director_lastname from pelicula 
+        $sql = 'SELECT director.nom as name, director.cognoms as lastname from pelicula 
             join pelicula_director on pelicula.id_pelicula = pelicula_director.id_pelicula
             join director on pelicula_director.id_director = director.id_director';
         $this->directors = $this->_executeQuery($sql);
@@ -68,7 +75,7 @@ class SearchMovie extends Connection
 
     private function _queryPlatforms()
     {
-        $sql = 'SELECT plataforma.nom as platform_name from pelicula
+        $sql = 'SELECT plataforma.nom as name from pelicula
             join plataforma_pelicula on pelicula.id_pelicula = plataforma_pelicula.id_pelicula
             join plataforma on plataforma_pelicula.id_plataforma = plataforma.id_plataforma';
         $this->platforms = $this->_executeQuery($sql);
@@ -76,24 +83,24 @@ class SearchMovie extends Connection
 
     private function _queryActors() 
     {
-        $sql = 'SELECT actor.nom as actor_name, actor.cognoms as actor_lastname from pelicula 
+        $sql = 'SELECT actor.nom as name, actor.cognoms as lastname from pelicula 
             join pelicula_actor on pelicula.id_pelicula = pelicula_actor.id_pelicula
             join actor on pelicula_actor.id_actor = actor.id_actor';
         $this->actors = $this->_executeQuery($sql);
     }
 
-    private function _queryGenre() 
+    private function _queryGenres() 
     {
-        $sql = 'SELECT genere.nom as genre_name from pelicula
+        $sql = 'SELECT genere.nom as name from pelicula
             join pelicula_genere on pelicula.id_pelicula = pelicula_genere.id_pelicula
             join genere on genere.id_genere = pelicula_genere.id_genere';
-        $this->genre = $this->_executeQuery($sql);
+        $this->genres = $this->_executeQuery($sql);
     }
 
     private function _merge()
     {
         $this->platforms = $this->_mergeField($this->platforms);
-        $this->genre = $this->_mergeField($this->genre);
+        $this->genres = $this->_mergeField($this->genres);
     }
 
     private function _mergeField($array)

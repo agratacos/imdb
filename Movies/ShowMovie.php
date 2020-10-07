@@ -1,7 +1,7 @@
 <?php namespace IMDB\Movies;
 
 // use PDO;
-use IMDB\Movies\SearchMovie as search;
+use IMDB\Movies\SearchMovie as Search;
 
 class ShowMovie extends SearchMovie 
 {
@@ -15,20 +15,25 @@ class ShowMovie extends SearchMovie
 
     public function showFilm($name)
     {
-        $this->search = new search($name);
+        $this->search = new Search($name);
         $this->search->search();
-        $this->_returnFilm($dades);
-        print_r($dades); // Treure-ho i fer: return json_encode($dades);
+        $this->_returnFilm($movies);
+        $data = ['movies' => $movies];
+
+        // print_r($data); 
+        // Treure-ho i fer: return json_encode($data);
+        print_r(json_encode($data));
     }
 
     /* Fer-ho amb el mateix format que si fos una pelicula, l'únic, que primer extreure tots els noms 
     de les pelis, i després actuar com si fos una, cada peli en una posició de l'array */
     public function showAll()
     {
-        $this->search = new search(NULL);
+        $this->search = new Search(NULL);
         $movies_names = $this->search->_getMoviesNames();
-        $this->_returnMovies($movies_names, $dades);
-        print_r($dades);          // Fer: return json_encode($dades);
+        $this->_returnMovies($movies_names, $movies);
+        $data = ['movies' => $movies];
+        print_r($data);          // Fer: return json_encode($data);
     }
 
     /******************************************
@@ -36,29 +41,29 @@ class ShowMovie extends SearchMovie
      * fer un array_combine entre aixó, i dp un array_merge per retornar el final
      ******************************************/
 
-    private function _returnMovies($movies_names, &$dades) 
+    private function _returnMovies($movies_names, &$movies) 
     {
         for ($i=0; $i < sizeof($movies_names); $i++) {
             $name = $movies_names[$i]['movie_name'];
             $this->_getFilm($name);
-            $this->_returnFilm($dades);
+            $this->_returnFilm($movies);
         }
     }
 
     private function _getFilm($name) 
     {
-        $this->search = new search($name);
+        $this->search = new Search($name);
         $this->search->search();
     }
 
-    private function _returnFilm(&$dades)
+    private function _returnFilm(&$movies)
     {
-        $dades[$this->search->movies[0]['id_movie']] = [   
+        $movies[$this->search->movies[0]['id_movie']] = [   
             'movie_data' => $this->search->movies[0], // Always return 1 position with all information
             'directors' => $this->search->directors, 
-            'platforms' => $this->search->platforms, // Funció perquè retorni un array associatiu amb tots els valors
+            'platforms' => $this->search->platforms, // Funció perquè retorni un array associatiu amb tots els valors, perquè no surti platform_name
             'actors' => $this->search->actors, 
-            'genre' => $this->search->genre
+            'genres' => $this->search->genres
         ];
     }
 }
