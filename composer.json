@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "IMDB\\": "../imdb/"
+        }
+    },
+    "authors": [ 
+        {
+            "name": "Albert Gratacós",
+            "email": "agratacos@gnahs.com"
+        }
+    ],
+    "type": "project",
+    "require": {}
+}
