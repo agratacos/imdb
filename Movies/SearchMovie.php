@@ -67,7 +67,7 @@ class SearchMovie extends Connection
 
     private function _queryDirectors() 
     {
-        $sql = 'SELECT director.nom as name, director.cognoms as lastname from pelicula 
+        $sql = 'SELECT director.nom as name, director.cognom as lastname from pelicula 
             join pelicula_director on pelicula.id_pelicula = pelicula_director.id_pelicula
             join director on pelicula_director.id_director = director.id_director';
         $this->directors = $this->_executeQuery($sql);
@@ -83,7 +83,7 @@ class SearchMovie extends Connection
 
     private function _queryActors() 
     {
-        $sql = 'SELECT actor.nom as name, actor.cognoms as lastname from pelicula 
+        $sql = 'SELECT actor.nom as name, actor.cognom as lastname from pelicula 
             join pelicula_actor on pelicula.id_pelicula = pelicula_actor.id_pelicula
             join actor on pelicula_actor.id_actor = actor.id_actor';
         $this->actors = $this->_executeQuery($sql);
@@ -99,8 +99,10 @@ class SearchMovie extends Connection
 
     private function _merge()
     {
-        $this->platforms = $this->_mergeField($this->platforms);
-        $this->genres = $this->_mergeField($this->genres);
+        // $this->platforms = $this->_mergeField($this->platforms);
+        // print_r($this->platforms);
+        // $this->genres = $this->_mergeField($this->genres);
+        // print_r($this->genres);
     }
 
     private function _mergeField($array)
