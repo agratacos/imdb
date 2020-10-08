@@ -58,6 +58,16 @@ class SearchMovie extends Connection
         return $result;
     }
 
+    // PROVA
+    // private function _executeQuery($sql) 
+    // {
+    //     $whereString = " where pelicula.id = :id ;";
+    //     $stmt = $this->connect->prepare($sql . $whereString);
+    //     $stmt->execute([':id' => "%{$this->name}%"]);
+    //     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     return $result;
+    // }
+
     private function _queryMovies() 
     {
         $sql = 'SELECT id_pelicula as id_movie, nom as movie_name, descripcio as movie_description, puntuacio as score,
@@ -97,15 +107,17 @@ class SearchMovie extends Connection
         $this->genres = $this->_executeQuery($sql);
     }
 
+    /**
+     * If want return more than 1 column, do delete _merge() method for get as director's and actor's format.
+     * But for now, is better this format for platforms and genres
+     */
     private function _merge()
     {
-        // $this->platforms = $this->_mergeField($this->platforms);
-        // print_r($this->platforms);
-        // $this->genres = $this->_mergeField($this->genres);
-        // print_r($this->genres);
+        $this->platforms = $this->_mergeFields($this->platforms);
+        $this->genres = $this->_mergeFields($this->genres);
     }
 
-    private function _mergeField($array)
+    private function _mergeFields($array)
     {
         $result = $array[0];
         for ($i=1; $i < sizeof($array); $i++) { 
