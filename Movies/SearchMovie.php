@@ -18,7 +18,7 @@ class SearchMovie extends Connection
         $this->name = $name;
     }
     
-    public function search() 
+    public function search()
     {
         $this->_callAll();
         $this->_merge();
