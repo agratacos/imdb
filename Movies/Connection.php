@@ -13,8 +13,7 @@ class Connection
     {
         try {
             $this->connect = new PDO('mysql:host=localhost;dbname=imdb', 'root', ''); 
-            $this->connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $this->connect->exec("set names utf8"); 
+            $this->connect -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $ex) { 
             return "ERROR {$ex->get_message()}"; 
           }
