@@ -42,23 +42,33 @@ function create_movie_div(id) {
 }
 
 function get_movie(movie) { // Arriba bé
+  var movieObj = {
+
+  };
+
   for (let type_data in movie) {
     if (movie.hasOwnProperty(type_data)) {
-      select_type_data(movie[type_data], type_data);
+      /***********************
+       * Última modificació, es segueix aquí, s'ha de comprovar si funciona
+       ***********************/
+      movieObj[type_data] = select_type_data(movie[type_data], type_data);
     }
   }
+  return movieObj;
+  // Crear un objecte amb totes les dades que retorna
 }
 
 function select_type_data(type_data, key) { // Arriba l'array amb les dades concretes de l'apartat
-  key == 'movie_data' 
+  return key == 'movie_data' 
     ? add_movie_data(type_data)
     : key == 'directors' 
-      ? fields_in_array(type_data) 
+      ? full_names(type_data) 
       : key == 'platforms'
         ? one_field(type_data)
         : key == 'actors'
-          ? fields_in_array(type_data)
+          ? full_names(type_data)
           : one_field(type_data);
+    // Fer early return per cada funció que va a cridar, i després en l'altre mètode ja es sumara tot
 }
 // anar fent estructura if else if else, cada 'paquet de dades'(objecte) serà una funció
 // cada funció afegeix les seves respectives dades a un String per mostrar-ho després al document.getElementById("movies").innerHTML
@@ -70,16 +80,7 @@ function add_movie_data(object) {
     result += `${object[property]}, `;
   }
 
-  // document.getElementById("movies").innerHTML = test();
-
-  document.getElementById(`movie_id_${object.id_movie}`).innerHTML += `${result} <br> ${show_image(object.movie_image)} <br>`;
-  // return result;
-}
-
-function test() {
-  var title = document.createElement('h3');
-  title.innerHTML = 'aixo es una prova';
-  return title;
+  return `${result} <br> ${show_image(object.movie_image)}`;
 }
 
 function show_image(image) {
@@ -87,11 +88,24 @@ function show_image(image) {
 }
 
 function one_field(object) {
-  
+  let result = '';
+
+  if (Array.isArray(object.name)) {
+    object.name.forEach(element => {
+      result += `${element}, `;
+    });
+    return result;
+  } else {
+    return object.name;
+  }
 }
 
-function fields_in_array(object) {
-  
+function full_names(object) {
+  let result = '';
+  object.forEach(element => {
+    result += `${element.name} ${element.lastname}, `; 
+  });
+  return result;
 }
 
 
