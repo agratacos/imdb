@@ -5,6 +5,10 @@ function get_data() {
       .then(response => console.log(response))
 }
 
+window.addEventListener('load', function () {
+  document.getElementById('search_btn').addEventListener('click', get_data_test);
+})
+
 function get_data_test() {
   let title = document.getElementById('search_input').value;
   let url = `http://imdb.test/information.php?show=${title}`; // Where it gets the json  
@@ -22,14 +26,12 @@ function get_data_test() {
 
 function get_movies_data(movies) {
   let movie_data, id_movie;
-
+  
   for (id_movie in movies) {
     if (movies.hasOwnProperty(id_movie)) {
-      // document.getElementById("movies").innerHTML = 'hola';
       create_movie_div(id_movie);
       movie_data = get_movie(movies[id_movie]);
-      // document.getElementById("movies").innerHTML = movie_data;
-      // add_in_document(); // Appends all movie data in a div from html
+      add_in_document(movie_data, id_movie); // Appends all movie data in a div from html
     }
   }
 }
@@ -42,49 +44,48 @@ function create_movie_div(id) {
 }
 
 function get_movie(movie) { // Arriba bé
-  var movieObj = {
-
-  };
+  var movie_obj = [];
 
   for (let type_data in movie) {
     if (movie.hasOwnProperty(type_data)) {
-      /***********************
-       * Última modificació, es segueix aquí, s'ha de comprovar si funciona
-       ***********************/
-      movieObj[type_data] = select_type_data(movie[type_data], type_data);
+      movie_obj[type_data] = select_type_data(movie[type_data], type_data);
     }
   }
-  return movieObj;
-  // Crear un objecte amb totes les dades que retorna
+  return movie_obj;
 }
 
-function select_type_data(type_data, key) { // Arriba l'array amb les dades concretes de l'apartat
+function select_type_data(obj_type_data, key) {
   return key == 'movie_data' 
-    ? add_movie_data(type_data)
+    ? add_movie_data(obj_type_data) 
     : key == 'directors' 
-      ? full_names(type_data) 
+      ? `Directors: ${full_names(obj_type_data)} <br>` 
       : key == 'platforms'
-        ? one_field(type_data)
+        ? `Plataformes: ${one_field(obj_type_data)} <br>`
         : key == 'actors'
-          ? full_names(type_data)
-          : one_field(type_data);
+          ? `Actors: ${full_names(obj_type_data)} <br>`
+          : `Gènere: ${one_field(obj_type_data)} <br>`;
     // Fer early return per cada funció que va a cridar, i després en l'altre mètode ja es sumara tot
 }
 // anar fent estructura if else if else, cada 'paquet de dades'(objecte) serà una funció
 // cada funció afegeix les seves respectives dades a un String per mostrar-ho després al document.getElementById("movies").innerHTML
+/******************************************************************************** */
+// I al final fer una funció per cada apartat pel format en que es mostrarà
+/******************************************************************************** */
         
 function add_movie_data(object) {
   let property, result = '';
   
   for (property in object) {
-    result += `${object[property]}, `;
+    if (property !== 'movie_image') {
+      result += `${object[property]}, `;
+    }
   }
 
-  return `${result} <br> ${show_image(object.movie_image)}`;
+  return `${result} <br> ${show_image(object.movie_image)} <br>`;
 }
 
 function show_image(image) {
-  return `<img src="${image}" alt="">`
+  return `<img src="${image}" alt="${image}">`
 }
 
 function one_field(object) {
@@ -108,7 +109,16 @@ function full_names(object) {
   return result;
 }
 
-
+/******************************************************************************************************
+ * S'han de fer les funcions per aplicar el format correcte, crear elements i fer l'estructura 'html'
+ ******************************************************************************************************/
+function add_in_document(movie_obj, id) {
+  for (const key in movie_obj) {
+    if (movie_obj.hasOwnProperty(key)) {
+      document.getElementById(`movie_id_${id}`).innerHTML += movie_obj[key]; 
+    }
+  }
+}
 
 /**********
  * Movie one function
