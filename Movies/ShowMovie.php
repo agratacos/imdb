@@ -24,8 +24,8 @@ class ShowMovie extends SearchMovie
         $this->search->search();
         $this->_returnFilm();
         $data = ['movies' => $this->loc_movies];
-        print_r($data); 
-            // Treure-ho i fer: return json_encode($data);
+        // print_r($data); 
+        echo json_encode($data);
     }
 
     /* Fer-ho amb el mateix format que si fos una pelicula, l'únic, que primer extreure tots els noms 
@@ -33,11 +33,10 @@ class ShowMovie extends SearchMovie
     public function showAll()
     {
         $this->search = new Search(NULL);
-        $movies_names = $this->search->_getMoviesNames();
-        $this->_returnMovies($movies_names);
+        $this->_returnMovies($this->search->_getMoviesNames());
         $data = ['movies' => $this->loc_movies];
-        print_r($data);          
-            // Fer: return json_encode($data);
+        // print_r($data);          
+        echo json_encode($data);
     }
 
     /******************************************
