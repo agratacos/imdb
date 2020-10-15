@@ -4,3 +4,11 @@
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+#movies {
+    /* display: inline; */
+}
+
+.movie_format {
+    border: 1px solid black;
+}
