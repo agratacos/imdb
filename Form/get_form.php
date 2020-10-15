@@ -11,5 +11,20 @@
 
     $image_name = $_FILES['image']['name'];
     $origin_path = $_FILES['image']['tmp_name'];
-    $destination_path = $_SERVER['DOCUMENT_ROOT'] . '/img/';
-    move_uploaded_file($origin_path, $destination_path . $image_name);
+
+    if(isImage($origin_path)){
+        $destination_path = $_SERVER['DOCUMENT_ROOT'] . '/img/';
+        move_uploaded_file($origin_path, $destination_path . $image_name);
+    }
+
+// Check if file uploaded is an image
+function isImage($img)
+{
+    $check = getimagesize($img);
+    if($check == false) {
+        return 'File is not an image.';
+    }
+    return true;
+}
+
+?>
