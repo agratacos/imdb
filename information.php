@@ -5,6 +5,7 @@ use IMDB\Movies\DeleteMovie as Delete;
 use IMDB\Movies\UpdateMovie as Update;
 use IMDB\Movies\InsertMovie as Insert;
 use IMDB\Movies\ShowMovie as Show;
+use IMDB\Movies\GenreDB as GENRE;
 
 header('Content-Type: application/json');
 $version = 'v2.3.2';
@@ -36,4 +37,10 @@ if (isset($show)) {
     // echo "<pre>";
         strlen($show) == 0 ? $view->showAll() : $view->showFilm($show);
     // echo "</pre>";
+}
+
+if(isset($_GET['genres']))
+{
+    $genres = new GENRE();
+    echo $genres->getGenres();
 }
