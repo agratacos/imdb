@@ -12,6 +12,10 @@ $version = 'v2.3.2';
 
 // http://information.php?show=Nom Peli
 
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
+
 $delete = $_GET['delete'];
 $update = $_GET['update'];
 $insert = $_GET['insert'];
