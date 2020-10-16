@@ -4,3 +4,23 @@
     box-sizing: border-box;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+#movies {    
+    /* border: 2px solid red; */
+}
+
+/* #movies img {
+    float: left;
+} */
+
+#movies div.movie_format {
+    border: 1px solid black;
+    overflow-x: auto;
+    overflow-y: auto;
+
+}
+
+#movies div.movie_format img {
+    float: left;
+}
+

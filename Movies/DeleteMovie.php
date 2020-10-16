@@ -11,7 +11,7 @@ class DeleteMovie extends Connection
         parent::__construct();
     }
     
-    public function delete($name) 
+    public function delete(String $name): String
     {
         try {
             $stmt = $this->connect->prepare('delete from pelicula where nom = :name');
