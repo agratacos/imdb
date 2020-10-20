@@ -1,6 +1,41 @@
 // window.addEventListener('load', function () {
 //     document.getElementById('search_btn').addEventListener('click', get_data);
 // })
+window.onload = function()
+{
+    fetch('http://imdb.test/information.php?genres')
+      .then(function(response){ return response.json(); })
+      .then(function(json){ addGenres(json); });
+    
+    // get_data();
+}
+
+function addGenres(json)
+{
+    for (const genres of json) {
+        var genre = createGenre(genres['nom']);
+        var genreLabel = createLabel(genres['nom']);
+        var appendTo = document.getElementById('genres'); // Place where append to
+        appendTo.appendChild(genre);
+        appendTo.appendChild(genreLabel);
+    }
+}
+
+function createGenre(name)
+{
+    var genre = document.createElement('input');
+    genre.type = 'checkbox';
+    genre.value = genre.id = genre.name = name;
+    return genre;
+}
+
+function createLabel(name)
+{
+    var label = document.createElement('label');
+    label.innerHTML = name;
+    label.setAttribute('for', name);
+    return label;
+}
 
 function get_data() {
     from_platforms();

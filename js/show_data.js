@@ -1,3 +1,8 @@
+window.onload = function()
+{
+  document.getElementById('search_btn').addEventListener('click', get_data_test);
+}
+
 function get_data() {
     let title = document.getElementById('search_input').value;  
     fetch(`http://imdb.test/information.php?show=${title}`)
@@ -5,9 +10,6 @@ function get_data() {
       .then(response => console.log(response))
 }
 
-window.addEventListener('load', function () {
-  document.getElementById('search_btn').addEventListener('click', get_data_test);
-})
 
 function get_data_test() {
   let title = document.getElementById('search_input').value;
