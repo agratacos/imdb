@@ -14,7 +14,7 @@ $update = $_GET['update'];
 $insert = $_GET['insert'];
 $show = $_GET['show'];
 $platform = $_GET['platform'];
-// $genre = $_GET['genre'];
+$genre = $_GET['genre'];
 
 if (isset($delete)) {
     $deleteObj = new Delete();
@@ -46,7 +46,7 @@ if (isset($platform)) {
 }
 
 // http://information.php?genre=Drama
-// if (isset($genre)) {
-//     $view = new Show();
-//     $view->showAll('genre', $genre);
-// }
+if (isset($genre)) {
+    $view = new Show();
+    $view->showAll('genre', $genre);
+}

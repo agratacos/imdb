@@ -38,9 +38,8 @@ class ShowMovie extends SearchMovie
      */
     public function showAll($filter_type = NULL, $filter_name = NULL)
     {
-        $join = $this->_get_join_structure($filter_type);
         $this->search = new Search($this->_get_filter($filter_name));
-        $this->_returnMovies($this->search->_getMoviesNames($join));
+        $this->_returnMovies($this->search->_getMoviesNames($this->_get_join_structure($filter_type)));
         $data = ['movies' => $this->loc_movies];
         // print_r($data);          
         echo json_encode($data);
