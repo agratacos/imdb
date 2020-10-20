@@ -1,13 +1,23 @@
-// window.addEventListener('load', function () {
-//     document.getElementById('search_btn').addEventListener('click', get_data);
-// })
 window.onload = function()
-{
+{    
+    get_data();
+}
+
+function get_data() {
+    from_platforms();
+    from_genres();
+}
+
+function from_platforms() {
+    fetch('http://imdb.test/information.php?platforms')
+      .then(function(response){ return response.json(); })
+      .then(function(json){ addPlatforms(json); });
+}
+
+function from_genres() {
     fetch('http://imdb.test/information.php?genres')
       .then(function(response){ return response.json(); })
       .then(function(json){ addGenres(json); });
-    
-    // get_data();
 }
 
 function addGenres(json)
@@ -37,31 +47,30 @@ function createLabel(name)
     return label;
 }
 
-function get_data() {
-    from_platforms();
-    from_genres();
-}
 
-function from_platforms() { // Get data from an url, need filter
+
+
+
+// function from_platforms() { // Get data from an url, need filter
     
-    new_label();
-    new_checkbox('platforms');
-}
+//     new_label();
+//     new_checkbox('platforms');
+// }
 
-function from_genres() { // Get data from an url, need filter
+// function from_genres() { // Get data from an url, need filter
 
-    new_label();
-    new_checkbox('genres');
-}
+//     new_label();
+//     new_checkbox('genres');
+// }
 
-function get_paragraph(type) { // type is 'platforms' or 'genres'
-    return document.getElementById(type); 
-}
+// function get_paragraph(type) { // type is 'platforms' or 'genres'
+//     return document.getElementById(type); 
+// }
 
-function new_label(type, id_name) {
-    get_paragraph(type).innerHTML = `<label for="${id_name}">${id_name}</label>`;
-}
+// function new_label(type, id_name) {
+//     get_paragraph(type).innerHTML = `<label for="${id_name}">${id_name}</label>`;
+// }
 
-function new_checkbox(type, value) {    
-    get_paragraph(type).innerHTML = `<input type="checkbox" name="${type}[]" value="${value}"> `;
-}
+// function new_checkbox(type, value) {    
+//     get_paragraph(type).innerHTML = `<input type="checkbox" name="${type}[]" value="${value}"> `;
+// }

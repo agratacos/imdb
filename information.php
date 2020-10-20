@@ -33,7 +33,7 @@ if (isset($insert)) {
     $insert->insert();
 }
 
-// http://information.php?show or http://information.php?show=Movie_Name
+// http://information.php?show or http://information.php?show=Coach_Carter
 if (isset($show)) {
     $view = new Show(); 
     // echo "<pre>";
@@ -41,7 +41,7 @@ if (isset($show)) {
     // echo "</pre>";
 }
 
-// http://information.php?platform=Netflix
+// http://information.php?platform or http://information.php?platform=Netflix
 if (isset($platform)) {
     $show_platf = new Platform();
     $view = new Show();
@@ -49,7 +49,7 @@ if (isset($platform)) {
     strlen($platform) == 0 ? $show_platf->getPlatforms() : $view->showAll('platform', $platform);
 }
 
-// http://information.php?genre=Drama
+// http://information.php?genre or http://information.php?genre=Drama
 if (isset($genre)) {
     $show_genres = new Genre();
     $view = new Show();
