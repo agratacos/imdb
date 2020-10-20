@@ -10,7 +10,7 @@ class Genre extends Connection
         parent::__construct();
     }
 
-    public function getGenres()
+    public function getGenres(): String
     {
         $stmt = $this->connect->prepare('SELECT * FROM genere');
         $stmt->execute();

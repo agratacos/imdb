@@ -10,7 +10,8 @@ class UpdateMovie extends Connection
         parent::__construct();
     }
 
-    public function update() {
+    public function update(): void
+    {
         $sql = "update pelicula set ...";
     }
 }

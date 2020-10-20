@@ -7,7 +7,7 @@ use IMDB\movies\actions\InsertMovie as Insert;
 use IMDB\movies\actions\ShowMovie as Show;
 
 header('Content-Type: application/json');
-$version = 'v2.3.2';
+$version = 'v2.4.2';
 
 $delete = $_GET['delete'];
 $update = $_GET['update'];
