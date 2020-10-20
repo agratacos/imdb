@@ -1,10 +1,10 @@
 <?php
 
 require 'vendor/autoload.php';
-use IMDB\Movies\DeleteMovie as Delete;
-use IMDB\Movies\UpdateMovie as Update;
-use IMDB\Movies\InsertMovie as Insert;
-use IMDB\Movies\ShowMovie as Show;
+use IMDB\movies\actions\DeleteMovie as Delete;
+use IMDB\movies\actions\UpdateMovie as Update;
+use IMDB\movies\actions\InsertMovie as Insert;
+use IMDB\movies\actions\ShowMovie as Show;
 
 header('Content-Type: application/json');
 $version = 'v2.3.2';

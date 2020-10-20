@@ -1,7 +1,7 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\actions;
 
 // use PDO;
-use IMDB\Movies\SearchMovie as Search;
+use IMDB\movies\actions\SearchMovie as Search;
 
 /*  
     Per filtrar per plataforma i gènere, agafem el id de la url, i amb una consulta a la BD obtenim tots

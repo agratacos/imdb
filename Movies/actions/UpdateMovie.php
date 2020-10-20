@@ -1,6 +1,6 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\actions;
 
-use IMDB\Movies\Connection;
+use IMDB\movies\Connection;
 
 class UpdateMovie extends Connection 
 {

@@ -1,7 +1,7 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\actions;
 
 use PDO;
-use IMDB\Movies\Connection;
+use IMDB\movies\Connection;
 
 class InsertMovie extends Connection 
 {
