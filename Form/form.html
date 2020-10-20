@@ -13,6 +13,11 @@
                     <label for="title">Títol:</label>
                     <input type="text" name="title" id="title" placeholder="Nom de la pel·licula" required>
                 </p>
+                
+                <p>
+                    <label for="directors">Directors</label>
+                    <input type="text" name="directors" id="directors" placeholder="Ex: David Kendrick, Thomas Anderson">
+                </p>
 
                 <p>
                     <label for="description">Descripció:</label>
@@ -29,6 +34,38 @@
                 </p>
 
                 <p>
+                    <label for="actors">Actors</label>
+                    <textarea name="actors" id="actors"
+                    placeholder="Ex: Chris Evans, Samuel L. Jackson, etc."></textarea>
+                </p>
+
+                <p>
+                    <label for="platforms">Plataformes:</label>
+                </p>
+
+                <!-- <p>
+                    <label for="HBO">HBO</label>
+                    <input type="checkbox" name="platforms[]" value="HBO">
+                    <label for="Netflix">Netflix</label>
+                    <input type="checkbox" name="platforms[]" value="Netflix">
+                    <label for="Amazon Prime">Amazon Prime</label>
+                    <input type="checkbox" name="platforms[]" value="Amazon Prime">
+                </p> -->
+
+                <div id="platforms">
+                    <p>Plataformes:</p>
+                </div>
+
+                <div id="genres">
+                    <p>Gèneres:</p>
+                </div>
+
+
+
+
+
+
+                <p>
                     <label for="image">Caràtula:</label>
                     <input type="file" name="image" id="image" required>
                 </p>
@@ -42,7 +79,6 @@
                 <img src="" alt="preview-image">
             </div> -->
         </aside>
+        <script src="../js/get_from_db.js"></script>
     </body>
 </html>
-
-

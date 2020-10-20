@@ -1,3 +1,8 @@
+window.onload = function()
+{
+  document.getElementById('search_btn').addEventListener('click', get_data_test);
+}
+
 function get_data() {
     let title = document.getElementById('search_input').value;  
     fetch(`http://imdb.test/information.php?show=${title}`)
@@ -5,9 +10,6 @@ function get_data() {
       .then(response => console.log(response))
 }
 
-window.addEventListener('load', function () {
-  document.getElementById('search_btn').addEventListener('click', get_data_test);
-})
 
 function get_data_test() {
   let title = document.getElementById('search_input').value;
@@ -37,13 +39,16 @@ function get_movies_data(movies) {
 }
 
 function create_movie_div(id) {
-  var element = document.createElement('div');
+  var element, currentDiv;
+
+  currentDiv = document.getElementById('movies');
+  element = document.createElement('div');
   element.id = `movie_id_${id}`; // ID for assign after, when gets the information
   element.className = 'movie_format';
-  document.body.appendChild(element);
+  currentDiv.appendChild(element);
 }
 
-function get_movie(movie) { // Arriba bé
+function get_movie(movie) {
   var movie_obj = [];
 
   for (let type_data in movie) {

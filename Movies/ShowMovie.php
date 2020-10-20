@@ -29,14 +29,43 @@ class ShowMovie extends SearchMovie
     }
 
     /* Fer-ho amb el mateix format que si fos una pelicula, l'únic, que primer extreure tots els noms 
-    de les pelis, i després actuar com si fos una, cada peli en una posició de l'array */
-    public function showAll()
+        de les pelis, i després actuar com si fos una, cada peli en una posició de l'array */
+
+    /**
+     * Arriba el nom del tipus de filtre (ex: platform), i el valor (ex: Netflix).
+     * L'objecte search local es crea amb el valor i després des del mètode _getMoviesNames() de Search()
+     * ja es tindra el valor per la condició del where en $this->name.
+     */
+    public function showAll($filter_type = NULL, $filter_name = NULL)
     {
-        $this->search = new Search(NULL);
-        $this->_returnMovies($this->search->_getMoviesNames());
+        $this->search = new Search($this->_get_filter($filter_name));
+        $this->_returnMovies($this->search->_getMoviesNames($this->_get_join_structure($filter_type)));
         $data = ['movies' => $this->loc_movies];
         // print_r($data);          
         echo json_encode($data);
+    }
+
+    private function _get_filter($name)
+    {
+        return $name != NULL ? $name : NULL;
+    }
+
+    private function _get_join_structure($filter)
+    {
+        return $filter === 'platform'
+                ? 'join plataforma_pelicula on pelicula.id_pelicula = plataforma_pelicula.id_pelicula
+                    join plataforma on plataforma_pelicula.id_plataforma = plataforma.id_plataforma 
+                    where plataforma.nom like ? ;'
+                : $this->_is_genre($filter);
+    }
+
+    private function _is_genre($filter)
+    {
+        return $filter === 'genre'
+                ? 'join pelicula_genere on pelicula.id_pelicula = pelicula_genere.id_pelicula
+                    join genere on genere.id_genere = pelicula_genere.id_genere
+                    where genere.nom like ? ;'
+                : NULL;
     }
 
     /******************************************

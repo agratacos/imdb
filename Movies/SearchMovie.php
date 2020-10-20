@@ -24,11 +24,24 @@ class SearchMovie extends Connection
         $this->_merge();
     }
 
-    protected function _getMoviesNames()
+    /**
+     * Here it comes: NULL, or join's structure with his correspondly tables.
+     * For get the movie's names from the corresponding filter
+     */
+
+    protected function _getMoviesNames($join = NULL)
     {
-        $stmt = $this->connect->prepare('SELECT nom as movie_name FROM pelicula');
-        $stmt->execute();
+        $sql = 'SELECT pelicula.nom as movie_name FROM pelicula ';
+
+        if ($join == NULL) {
+            $stmt = $this->connect->prepare($sql);
+            $stmt->execute();
+        } else {
+            $stmt = $this->connect->prepare($sql . $join);
+            $stmt->execute(["%{$this->name}%"]);
+        }
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         return $result;
     }
 
@@ -51,11 +64,17 @@ class SearchMovie extends Connection
         es pot agafar amb columna ( ['movie_name'] ) */
     private function _executeQuery($sql) 
     {
+        // $whereString = get_where();
         $whereString = ' where pelicula.nom like :name ;';
         $stmt = $this->connect->prepare($sql . $whereString);
         $stmt->execute([':name' => "%{$this->name}%"]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function get_where()
+    {
+        # code...
     }
 
     // PROVA
