@@ -1,4 +1,4 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies;
 
 //  All classes extends to Connection
 

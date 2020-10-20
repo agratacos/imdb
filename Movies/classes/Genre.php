@@ -1,9 +1,9 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\classes;
 
 use PDO;
-use IMDB\Movies\Connection;
+use IMDB\movies\Connection;
 
-class GenreDB extends Connection
+class Genre extends Connection
 {
     public function __construct()
     {
