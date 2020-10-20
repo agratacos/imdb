@@ -5,21 +5,16 @@ use IMDB\Movies\DeleteMovie as Delete;
 use IMDB\Movies\UpdateMovie as Update;
 use IMDB\Movies\InsertMovie as Insert;
 use IMDB\Movies\ShowMovie as Show;
-use IMDB\Movies\GenreDB as GENRE;
 
 header('Content-Type: application/json');
 $version = 'v2.3.2';
-
-// http://information.php?show=Nom Peli
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
 
 $delete = $_GET['delete'];
 $update = $_GET['update'];
 $insert = $_GET['insert'];
 $show = $_GET['show'];
+$platform = $_GET['platform'];
+$genre = $_GET['genre'];
 
 if (isset($delete)) {
     $deleteObj = new Delete();
@@ -36,6 +31,7 @@ if (isset($insert)) {
     $insert->insert();
 }
 
+// http://information.php?show or http://information.php?show=Movie_Name
 if (isset($show)) {
     $view = new Show(); 
     // echo "<pre>";
@@ -43,8 +39,14 @@ if (isset($show)) {
     // echo "</pre>";
 }
 
-if(isset($_GET['genres']))
-{
-    $genres = new GENRE();
-    echo $genres->getGenres();
+// http://information.php?platform=Netflix
+if (isset($platform)) {
+    $view = new Show();
+    $view->showAll('platform', $platform);
+}
+
+// http://information.php?genre=Drama
+if (isset($genre)) {
+    $view = new Show();
+    $view->showAll('genre', $genre);
 }
