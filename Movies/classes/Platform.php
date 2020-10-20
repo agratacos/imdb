@@ -3,16 +3,16 @@
 use PDO;
 use IMDB\movies\Connection;
 
-class Genre extends Connection
+class Platform extends Connection
 {
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function getGenres(): String
+    public function getPlatforms(): String
     {
-        $stmt = $this->connect->prepare('SELECT * FROM genere');
+        $stmt = $this->connect->prepare('SELECT * FROM plataforma');
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);

@@ -5,6 +5,8 @@ use IMDB\movies\actions\DeleteMovie as Delete;
 use IMDB\movies\actions\UpdateMovie as Update;
 use IMDB\movies\actions\InsertMovie as Insert;
 use IMDB\movies\actions\ShowMovie as Show;
+use IMDB\movies\classes\Platform as Platform;
+use IMDB\movies\classes\Genre as Genre;
 
 header('Content-Type: application/json');
 $version = 'v2.4.2';
@@ -41,12 +43,16 @@ if (isset($show)) {
 
 // http://information.php?platform=Netflix
 if (isset($platform)) {
+    $show_platf = new Platform();
     $view = new Show();
-    $view->showAll('platform', $platform);
+
+    strlen($platform) == 0 ? $show_platf->getPlatforms() : $view->showAll('platform', $platform);
 }
 
 // http://information.php?genre=Drama
 if (isset($genre)) {
+    $show_genres = new Genre();
     $view = new Show();
-    $view->showAll('genre', $genre);
+
+    strlen($genre) == 0 ? $show_genres->getGenres() : $view->showAll('genre', $genre);
 }
