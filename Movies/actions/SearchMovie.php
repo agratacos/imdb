@@ -1,7 +1,7 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\actions;
 
 use PDO;
-use IMDB\Movies\Connection;
+use IMDB\movies\Connection;
 
 class SearchMovie extends Connection 
 {
@@ -12,27 +12,40 @@ class SearchMovie extends Connection
     protected $actors;
     protected $genres;
 
-    public function __construct($name) 
+    public function __construct(String $name) 
     {
         parent::__construct();
         $this->name = $name;
     }
     
-    public function search() 
+    public function search(): void
     {
         $this->_callAll();
         $this->_merge();
     }
 
-    protected function _getMoviesNames()
+    /**
+     * Here it comes: NULL, or join's structure with his correspondly tables.
+     * For get the movie's names from the corresponding filter
+     */
+
+    protected function _getMoviesNames(String $join = NULL): Array
     {
-        $stmt = $this->connect->prepare('SELECT nom as movie_name FROM pelicula');
-        $stmt->execute();
+        $sql = 'SELECT pelicula.nom as movie_name FROM pelicula ';
+
+        if ($join == NULL) {
+            $stmt = $this->connect->prepare($sql);
+            $stmt->execute();
+        } else {
+            $stmt = $this->connect->prepare($sql . $join);
+            $stmt->execute(["%{$this->name}%"]);
+        }
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        
         return $result;
     }
 
-    private function _callAll() 
+    private function _callAll(): void
     {
         $this->_queryMovies();
         $this->_queryDirectors();
@@ -49,7 +62,7 @@ class SearchMovie extends Connection
         Mirar d'utilitzar la funció _getTablesNames() adaptant-la a que retorni les 3 dades, 
         però primer mirar com retorna la informació i a veure si el nom de les pelis desde ShowMovie
         es pot agafar amb columna ( ['movie_name'] ) */
-    private function _executeQuery($sql) 
+    private function _executeQuery(String $sql): Array
     {
         $whereString = ' where pelicula.nom like :name ;';
         $stmt = $this->connect->prepare($sql . $whereString);
@@ -58,14 +71,24 @@ class SearchMovie extends Connection
         return $result;
     }
 
-    private function _queryMovies() 
+    // PROVA
+    // private function _executeQuery($sql) 
+    // {
+    //     $whereString = " where pelicula.id = :id ;";
+    //     $stmt = $this->connect->prepare($sql . $whereString);
+    //     $stmt->execute([':id' => "%{$this->name}%"]);
+    //     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    //     return $result;
+    // }
+
+    private function _queryMovies(): void
     {
         $sql = 'SELECT id_pelicula as id_movie, nom as movie_name, descripcio as movie_description, puntuacio as score,
              data_publi as publication_date, caratula as movie_image from pelicula'; 
         $this->movies = $this->_executeQuery($sql);
     }
 
-    private function _queryDirectors() 
+    private function _queryDirectors(): void
     {
         $sql = 'SELECT director.nom as name, director.cognom as lastname from pelicula 
             join pelicula_director on pelicula.id_pelicula = pelicula_director.id_pelicula
@@ -73,7 +96,7 @@ class SearchMovie extends Connection
         $this->directors = $this->_executeQuery($sql);
     }
 
-    private function _queryPlatforms()
+    private function _queryPlatforms(): void
     {
         $sql = 'SELECT plataforma.nom as name from pelicula
             join plataforma_pelicula on pelicula.id_pelicula = plataforma_pelicula.id_pelicula
@@ -81,7 +104,7 @@ class SearchMovie extends Connection
         $this->platforms = $this->_executeQuery($sql);
     }
 
-    private function _queryActors() 
+    private function _queryActors(): void
     {
         $sql = 'SELECT actor.nom as name, actor.cognom as lastname from pelicula 
             join pelicula_actor on pelicula.id_pelicula = pelicula_actor.id_pelicula
@@ -89,7 +112,7 @@ class SearchMovie extends Connection
         $this->actors = $this->_executeQuery($sql);
     }
 
-    private function _queryGenres() 
+    private function _queryGenres(): void
     {
         $sql = 'SELECT genere.nom as name from pelicula
             join pelicula_genere on pelicula.id_pelicula = pelicula_genere.id_pelicula
@@ -97,15 +120,17 @@ class SearchMovie extends Connection
         $this->genres = $this->_executeQuery($sql);
     }
 
-    private function _merge()
+    /**
+     * If want return more than 1 column, do delete _merge() method for get as director's and actor's format.
+     * But for now, is better this format for platforms and genres
+     */
+    private function _merge(): void
     {
-        // $this->platforms = $this->_mergeField($this->platforms);
-        // print_r($this->platforms);
-        // $this->genres = $this->_mergeField($this->genres);
-        // print_r($this->genres);
+        $this->platforms = $this->_mergeFields($this->platforms);
+        $this->genres = $this->_mergeFields($this->genres);
     }
 
-    private function _mergeField($array)
+    private function _mergeFields(Array $array): Array
     {
         $result = $array[0];
         for ($i=1; $i < sizeof($array); $i++) { 

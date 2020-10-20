@@ -1,6 +1,6 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\actions;
 
-use IMDB\Movies\Connection;
+use IMDB\movies\Connection;
 
 class UpdateMovie extends Connection 
 {
@@ -10,7 +10,8 @@ class UpdateMovie extends Connection
         parent::__construct();
     }
 
-    public function update() {
+    public function update(): void
+    {
         $sql = "update pelicula set ...";
     }
 }

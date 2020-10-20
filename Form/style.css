@@ -1,4 +1,7 @@
 * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
     font-family: cursive;
 }
 
@@ -28,14 +31,19 @@ aside textarea {
     height: 100px;
 }
 
+textarea[id="actors"] {
+    width: 50%;
+    height: 75px;
+}
+
 aside label[for="publication_date"] {
-    margin-left: 20px;
+    margin-left: 3%;
 }
 
 input[type="submit"] {
     background-color: rgb(51, 46, 46);
     color: white;
-    margin-bottom: 10px;
+    margin-bottom: 2%;
     padding: 4px;
 }
 

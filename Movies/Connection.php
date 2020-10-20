@@ -1,4 +1,4 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies;
 
 //  All classes extends to Connection
 
@@ -13,7 +13,8 @@ class Connection
     {
         try {
             $this->connect = new PDO('mysql:host=localhost;dbname=imdb', 'root', ''); 
-            $this->connect -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->connect->exec("set names utf8"); 
         } catch (PDOException $ex) { 
             return "ERROR {$ex->get_message()}"; 
           }

@@ -1,7 +1,7 @@
-<?php namespace IMDB\Movies;
+<?php namespace IMDB\movies\actions;
 
 use PDO;
-use IMDB\Movies\Connection;
+use IMDB\movies\Connection;
 
 class DeleteMovie extends Connection 
 {
@@ -11,7 +11,7 @@ class DeleteMovie extends Connection
         parent::__construct();
     }
     
-    public function delete($name) 
+    public function delete(String $name): String 
     {
         try {
             $stmt = $this->connect->prepare('delete from pelicula where nom = :name');
