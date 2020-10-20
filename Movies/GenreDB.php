@@ -18,5 +18,3 @@ class GenreDB extends Connection
         return json_encode($result);
     }
 }
-
-?>
