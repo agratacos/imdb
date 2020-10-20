@@ -1,5 +1,5 @@
 <?php 
-    // namespace Movies\Form;
+    // namespace IMDB\form;
     
     // A partir de tota aquesta informació s'hauria de pujar a la bd
 
@@ -21,8 +21,10 @@
     function isImage($img)
     {
         $check = getimagesize($img);
+
         if($check == false) {
             return 'File is not an image.';
         }
+
         return true;
     }

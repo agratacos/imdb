@@ -18,7 +18,7 @@ class ShowMovie extends SearchMovie
         
     }
 
-    public function showFilm($name)
+    public function showFilm(String $name): void
     {
         $this->search = new Search($name);
         $this->search->search();
@@ -36,7 +36,7 @@ class ShowMovie extends SearchMovie
      * L'objecte search local es crea amb el valor i després des del mètode _getMoviesNames() de Search()
      * ja es tindra el valor per la condició del where en $this->name.
      */
-    public function showAll($filter_type = NULL, $filter_name = NULL)
+    public function showAll(String $filter_type = NULL, String $filter_name = NULL): void
     {
         $this->search = new Search($this->_get_filter($filter_name));
         $this->_returnMovies($this->search->_getMoviesNames($this->_get_join_structure($filter_type)));
@@ -45,12 +45,12 @@ class ShowMovie extends SearchMovie
         echo json_encode($data);
     }
 
-    private function _get_filter($name)
+    private function _get_filter(String $name): String
     {
         return $name != NULL ? $name : NULL;
     }
 
-    private function _get_join_structure($filter)
+    private function _get_join_structure(String $filter): String
     {
         return $filter === 'platform'
                 ? 'join plataforma_pelicula on pelicula.id_pelicula = plataforma_pelicula.id_pelicula
@@ -59,7 +59,7 @@ class ShowMovie extends SearchMovie
                 : $this->_is_genre($filter);
     }
 
-    private function _is_genre($filter)
+    private function _is_genre(String $filter): String
     {
         return $filter === 'genre'
                 ? 'join pelicula_genere on pelicula.id_pelicula = pelicula_genere.id_pelicula
@@ -73,7 +73,7 @@ class ShowMovie extends SearchMovie
      * fer un array_combine entre aixó, i dp un array_merge per retornar el final
      ******************************************/
 
-    private function _returnMovies($movies_names) 
+    private function _returnMovies(Array $movies_names): void
     {
         for ($i=0; $i < sizeof($movies_names); $i++) {
             $name = $movies_names[$i]['movie_name'];
@@ -82,13 +82,13 @@ class ShowMovie extends SearchMovie
         }
     }
 
-    private function _getFilm($name) 
+    private function _getFilm(String $name): void 
     {
         $this->search = new Search($name);
         $this->search->search();
     }
 
-    private function _returnFilm()
+    private function _returnFilm(): void
     {
         $this->loc_movies[$this->search->movies[0]['id_movie']] = [   
             'movie_data' => $this->search->movies[0], // Always return 1 position with all information
