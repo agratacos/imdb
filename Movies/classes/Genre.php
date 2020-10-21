@@ -12,7 +12,7 @@ class Genre extends Connection
 
     public function getGenres(): String
     {
-        $stmt = $this->connect->prepare('SELECT * FROM genere');
+        $stmt = $this->connect->prepare('SELECT nom as name FROM genere');
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         echo json_encode($result);
