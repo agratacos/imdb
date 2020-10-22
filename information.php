@@ -9,7 +9,7 @@ use IMDB\movies\classes\Platform as Platform;
 use IMDB\movies\classes\Genre as Genre;
 
 header('Content-Type: application/json');
-$version = 'v2.4.2';
+$version = 'v2.4.3';
 
 $delete = $_GET['delete'];
 $update = $_GET['update'];
