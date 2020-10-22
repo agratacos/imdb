@@ -8,7 +8,8 @@
 aside {
     background-color: rgba(255, 0, 0, 0.3);  /* rgba(255, 0, 0, 0.7), rgb(187, 173, 173) */
     width: 40%;
-    margin: 20px auto;
+    margin: 15px auto;
+    padding: 10px;
     
     -webkit-box-shadow: 0px 0px 15px 7px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 15px 7px rgba(0,0,0,0.25);
@@ -17,11 +18,6 @@ aside {
 
 aside h2 {
     text-align: center;
-}
-
-aside p {
-    margin: 10px;
-    margin-left: 20px;
 }
 
 aside textarea {
@@ -37,7 +33,19 @@ textarea[id="actors"] {
 }
 
 aside label[for="publication_date"] {
-    margin-left: 3%;
+    margin-left: 1%;
+}
+
+form > p, form > div {
+    margin: 8px;
+}
+
+form div > input {
+    margin-left: 2%;
+}
+
+form div > input:first-of-type {
+    margin-left: 0px;
 }
 
 input[type="submit"] {
@@ -46,7 +54,3 @@ input[type="submit"] {
     margin-bottom: 2%;
     padding: 4px;
 }
-
-/* div#uploaded-image-preview {
-
-} */

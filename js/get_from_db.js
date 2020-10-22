@@ -1,32 +1,46 @@
-// window.addEventListener('load', function () {
-//     document.getElementById('search_btn').addEventListener('click', get_data);
-// })
 window.onload = function()
-{
-    fetch('http://imdb.test/information.php?genres')
-      .then(function(response){ return response.json(); })
-      .then(function(json){ addGenres(json); });
-    
-    // get_data();
+{    
+    get_data();
 }
 
-function addGenres(json)
+function get_data() 
 {
-    for (const genres of json) {
-        var genre = createGenre(genres['nom']);
-        var genreLabel = createLabel(genres['nom']);
-        var appendTo = document.getElementById('genres'); // Place where append to
-        appendTo.appendChild(genre);
-        appendTo.appendChild(genreLabel);
+    from_platforms();
+    from_genres();
+}
+
+function from_platforms() 
+{
+    fetch('http://imdb.test/information.php?platform')
+        .then(function(response){ return response.json(); })
+        .then(function(json){ addCheckbox(json, 'platforms'); });
+}
+
+function from_genres() 
+{
+    fetch('http://imdb.test/information.php?genre')
+        .then(function(response){ return response.json(); })
+        .then(function(json){ addCheckbox(json, 'genres'); }); // 
+}
+
+function addCheckbox(json, id_name_in_html)
+{
+    for (const elements of json) {
+        var element = createInput(elements['name']);
+        var elementLabel = createLabel(elements['name']);
+        var appendTo = document.getElementById(id_name_in_html); // Place where append to
+        appendTo.appendChild(element);
+        appendTo.appendChild(elementLabel);
     }
 }
 
-function createGenre(name)
+function createInput(name)
 {
-    var genre = document.createElement('input');
-    genre.type = 'checkbox';
-    genre.value = genre.id = genre.name = name;
-    return genre;
+    var input = document.createElement('input');
+    input.type = 'checkbox';
+    input.value = input.id = name;
+    input.name = `${name}[]`; // For after get elements in a array, for insert into DB
+    return input;
 }
 
 function createLabel(name)
@@ -35,33 +49,4 @@ function createLabel(name)
     label.innerHTML = name;
     label.setAttribute('for', name);
     return label;
-}
-
-function get_data() {
-    from_platforms();
-    from_genres();
-}
-
-function from_platforms() { // Get data from an url, need filter
-    
-    new_label();
-    new_checkbox('platforms');
-}
-
-function from_genres() { // Get data from an url, need filter
-
-    new_label();
-    new_checkbox('genres');
-}
-
-function get_paragraph(type) { // type is 'platforms' or 'genres'
-    return document.getElementById(type); 
-}
-
-function new_label(type, id_name) {
-    get_paragraph(type).innerHTML = `<label for="${id_name}">${id_name}</label>`;
-}
-
-function new_checkbox(type, value) {    
-    get_paragraph(type).innerHTML = `<input type="checkbox" name="${type}[]" value="${value}"> `;
 }
